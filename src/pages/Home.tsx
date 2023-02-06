@@ -10,11 +10,9 @@ function Home(){
     const countries = AppUseSelector((state)=>state.countries.countriesList);
     const dispatch = useAppDispatch();
     const [countryName, setName]= useState<string>('');
-    console.log(countryName);
+    
 
-   
-
-    return(
+   return(
         <>
         <p>Home</p>
         <input type="text" onChange={(event)=>setName(event.target.value)}/>
@@ -32,6 +30,7 @@ function Home(){
                     <hr/>
                 </div>
             })}
+        
         </div>
         </>
     )
