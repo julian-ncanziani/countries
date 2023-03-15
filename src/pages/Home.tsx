@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AppUseSelector, useAppDispatch } from '../redux/hooks';
-import { fetchCountry, deleteCountry } from '../redux/slices/countries';
-
+import { fetchCountry } from '../redux/slices/countries';
+//components
+import NavBar from '../components/NavBar';
+import Card from '../components/Card';
 
 
 
@@ -11,25 +13,24 @@ function Home(){
     const dispatch = useAppDispatch();
     const [countryName, setName]= useState<string>('');
     
+    useEffect(()=>{
 
+    },[countries]);
+    
    return(
         <>
-        <p>Home</p>
-        <input type="text" onChange={(event)=>setName(event.target.value)}/>
-        <button onClick={() => dispatch(fetchCountry(countryName))}>traer data</button>
-        <div>
-            {countries.map((country, index)=>{
-                return <div key={index}>
-                <hr/>
-                    <button onClick={()=> {dispatch(deleteCountry(country.name.common))}}>X</button>
-                    <p>Name: {country.name.common}</p>
-                    <p>Region: {country.region}</p>
-                    <p>Population: {country.population}</p>
-                    <p>SugRegion: {country.subregion}</p>
-                    <img src={country.flags.png} alt="" />
-                    <hr/>
-                </div>
-            })}
+        <NavBar/>
+        <input 
+            className='border-solid border-1 border-black rounded '
+            type="text" 
+            onChange={(event)=>setName(event.target.value)}/>
+        <button className='hover:bg-cyan-400 border border-sky-500 rounded mx-5'
+            onClick={() => dispatch(fetchCountry(countryName))}>traer data</button>
+        <div className='flex flex-wrap'>
+            {countries.length !== 0 ? 
+            countries.map((country, index)=>{
+                return <Card country={country} index={index}/>
+            }) : <></>}
         
         </div>
         </>

@@ -1,5 +1,4 @@
 import {createSlice, PayloadAction, createAsyncThunk} from '@reduxjs/toolkit';
-import { rejects } from 'assert';
 import axios from 'axios';
 
 export const fetchCountry = createAsyncThunk('getArg', async(countryName: string)=>{
@@ -9,7 +8,7 @@ export const fetchCountry = createAsyncThunk('getArg', async(countryName: string
 
 
 
-type Country = { // defino los type de datos que me llegan en la response
+export type Country = { // defino los type de datos que me llegan en la response
     name: {
         common: string,
         official: string
@@ -48,12 +47,13 @@ const countriesSlice = createSlice({
             state.loading = 'pending';
         });
         builder.addCase(fetchCountry.fulfilled, (state, action)=>{
-            if(!state.countriesList.find(country => country.name.common == action.payload.name.common)){
+            if(!state.countriesList.find(country => country.name.common === action.payload.name.common)){
                 state.countriesList.push(action.payload);
                 state.loading = 'done';
             }else{
                 state.reason = 'el pais ya se encuentra en la lista';
-                throw('el pais se encuentra en la lista');
+                state.loading = 'failed';
+                throw new Error('el pais se encuentra en la lista');
             }
         });
         builder.addCase(fetchCountry.rejected, (state)=>{
