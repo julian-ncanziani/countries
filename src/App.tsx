@@ -1,4 +1,3 @@
-import React from 'react';
 import { createBrowserRouter, RouterProvider} from 'react-router-dom';
 import './App.css';
 
@@ -20,7 +19,7 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className="App  h-screen w-screen bg-slate-300">
+    <div className="App  min-h-screen min-w-screen bg-gray-300">
       <RouterProvider router={router}/>
     </div>
   );

@@ -1,9 +1,10 @@
 import {createSlice, PayloadAction, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchCountry = createAsyncThunk('getArg', async(countryName: string)=>{
-    const response = await axios.get('https://restcountries.com/v3.1/name/' + countryName);
-    return response.data[0];
+//thunks
+export const fetchCountries = createAsyncThunk('getAllCountries', async()=>{
+    const response = await axios.get('https://restcountries.com/v3.1/all');
+    return response.data;
 });
 
 
@@ -12,14 +13,14 @@ export type Country = { // defino los type de datos que me llegan en la response
     name: {
         common: string,
         official: string
-    }
+    },
     population: string,
     region: string,
     subregion: string,
     flags: {
         png: string
     }
-}
+};
 
 interface countriesState{
     countriesList: Array<Country>;
@@ -43,20 +44,14 @@ const countriesSlice = createSlice({
         }
     },
     extraReducers(builder) {
-        builder.addCase(fetchCountry.pending, (state)=>{
+        builder.addCase(fetchCountries.pending, (state)=>{
             state.loading = 'pending';
         });
-        builder.addCase(fetchCountry.fulfilled, (state, action)=>{
-            if(!state.countriesList.find(country => country.name.common === action.payload.name.common)){
-                state.countriesList.push(action.payload);
-                state.loading = 'done';
-            }else{
-                state.reason = 'el pais ya se encuentra en la lista';
-                state.loading = 'failed';
-                throw new Error('el pais se encuentra en la lista');
-            }
+        builder.addCase(fetchCountries.fulfilled, (state, action)=>{
+            state.countriesList.push(...action.payload);
+            state.loading = 'done';
         });
-        builder.addCase(fetchCountry.rejected, (state)=>{
+        builder.addCase(fetchCountries.rejected, (state)=>{
             state.loading = 'failed';
         });
     },
