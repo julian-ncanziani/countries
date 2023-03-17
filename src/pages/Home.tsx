@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
-import { AppUseSelector, useAppDispatch } from '../redux/hooks';
+import { AppUseSelector } from '../redux/hooks';
 
 //components
 import NavBar from '../components/NavBar';
 import Cards from '../components/Cards';
-
+import Footer from '../components/Footer';
 
 function Home(){
 
@@ -14,6 +13,7 @@ function Home(){
         <div>
             <NavBar/>
             <Cards countries={countries}/>
+            <Footer/>
         </div>
     )
 };

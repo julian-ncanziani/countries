@@ -7,7 +7,14 @@ export const fetchCountries = createAsyncThunk('getAllCountries', async()=>{
     return response.data;
 });
 
+export interface CountryCurrencies{
+    [currencie: string]: Currency
+}
 
+export interface Currency{
+    name: string, 
+    symbol: string
+}
 
 export type Country = { // defino los type de datos que me llegan en la response
     name: {
@@ -19,6 +26,15 @@ export type Country = { // defino los type de datos que me llegan en la response
     subregion: string,
     flags: {
         png: string
+    },
+    currencies: CountryCurrencies,
+    capital: [string],
+    ['latlng']: [number, number],
+    gini:{
+        [key: number]: number
+    },
+    languages: {
+        
     }
 };
 
