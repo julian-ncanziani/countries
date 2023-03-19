@@ -7,17 +7,19 @@ import Landing from './pages/Landing';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/landing',
     element: <Landing/>
   },
   {
-    path: '/home',
+    path: '/',
     element: <Home/>,
     children: []
   }
 ]);
 
 function App() {
+  
+
   return (
     <div className="App  min-h-screen min-w-screen bg-zinc-100">
       <RouterProvider router={router}/>

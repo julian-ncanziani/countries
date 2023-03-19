@@ -39,19 +39,37 @@ export default function CountryModal(props: modalProps){
                 </div>
                 <span className='flex flex-wrap'>
                     <img src={props.country.flags.png} alt="" className='w-40'/>
-                    <h1>{props.country.name.official}</h1>
+                    <h1 className='w-3/5 text-3xl text-center'>{props.country.name.official}</h1>
                 </span>
-                <ol>
-                    <li>{props.country.region}</li>
-                    <li>{props.country.subregion}</li>
-                    <li>{props.country.population}</li>
-                    <li>{props.country.capital}</li>
-                    <li>lat: {props.country.latlng[0]}/long: {props.country.latlng[1]}</li>
-                    {Object.keys(currencies).map((currencyCode)=>{
+                <table className='mt-10 ml-auto mr-auto'>
+                    <tr>
+                        <th className='w-40 text-left'>Region</th>
+                        <td>{props.country.region}</td>
+                    </tr>
+                    <tr>
+                        <th className='w-40 text-left'>SubRegion</th>
+                        <td>{props.country.subregion}</td>
+                    </tr>
+                    <tr>
+                        <th className='w-40 text-left'>Population</th>
+                        <td>{props.country.population}</td>
+                    </tr>
+                    <tr>
+                        <th className='w-40 text-left'>Capital</th>
+                        <td>{props.country.capital}</td>
+                    </tr>
+                    <tr>
+                        <th className='w-40 text-left'>Lat/Long</th>
+                        <td>{props.country.latlng[0]}/{props.country.latlng[1]}</td>
+                    </tr>
+                    <tr>
+                        <th className='w-40 text-left'>Currency</th>
+                        <td>{Object.keys(currencies).map((currencyCode)=>{
                         const currency  = currencies[currencyCode];
-                        return (<li>{currency.name}, {currency.symbol}</li>)
-                    })}
-                </ol>
+                        return (<>{currency.name} ({currency.symbol})</>)
+                    })}</td>
+                    </tr>
+                </table>
             </Modal>
         
     </>);

@@ -1,11 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 import countriesReducer from './slices/countries';
-import counterReducer from './slices/counter';
+
+ /* function myMiddleWare(){
+
+}; */
 
 export const store = configureStore({
     reducer: {
         countries: countriesReducer
     },
+   // middleware: (getDefaulMiddleware)=>getDefaulMiddleware().concat()
   });
 
   // Infer the `RootState` and `AppDispatch` types from the store itself
